@@ -1,4 +1,5 @@
 load("@rules_bazelrio//:java_rules.bzl", "bazelrio_java_binary")
+load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 def __prepare_halsim(halsim_deps):
     extension_names = []
@@ -20,7 +21,7 @@ def halsim_cc_binary(
         "//conditions:default": {"HALSIM_EXTENSIONS": ":".join(extension_names)},
     })
 
-    native.cc_binary(
+    cc_binary(
         name = name,
         deps = deps + halsim_deps,
         env = env,
