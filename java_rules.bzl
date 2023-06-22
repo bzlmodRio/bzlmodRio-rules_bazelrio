@@ -1,4 +1,5 @@
 load("@rules_bazelrio//private:get_dynamic_deps.bzl", "get_dynamic_deps")
+load("@rules_java//java:defs.bzl", "java_binary", "java_test")
 
 def _symlink_java_native_libraries_impl(ctx):
     shared_lib_native_deps = []
@@ -35,7 +36,7 @@ def bazelrio_java_binary(name, deps = [], data = [], runtime_deps = [], **kwargs
         }),
     )
 
-    native.java_binary(
+    java_binary(
         name = name,
         deps = deps,
         runtime_deps = runtime_deps,
@@ -69,7 +70,7 @@ def bazelrio_java_test(name, deps = [], data = [], runtime_deps = [], **kwargs):
         testonly = True,
     )
 
-    native.java_test(
+    java_test(
         name = name,
         deps = deps,
         runtime_deps = runtime_deps,

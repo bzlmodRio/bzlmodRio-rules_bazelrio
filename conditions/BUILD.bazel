@@ -14,6 +14,29 @@ config_setting(
     visibility = ["//visibility:public"],
 )
 
+# Mimics @bazel_tools/src/conditions:windows_arm64
+config_setting(
+    name = "windows_arm64",
+    constraint_values = [
+        "@platforms//os:windows",
+        "@platforms//cpu:x86_64",
+    ],
+    values = {"cpu": "x64_arm64_windows"},
+)
+
+config_setting(
+    name = "windows_arm64_debug",
+    constraint_values = [
+        "@platforms//os:windows",
+        "@platforms//cpu:x86_64",
+    ],
+    values = {
+        "cpu": "x64_arm64_windows",
+        "compilation_mode": "dbg",
+    },
+    visibility = ["//visibility:public"],
+)
+
 # Mimics @bazel_tools/src/conditions:linux_x86_64
 config_setting(
     name = "linux_x86_64",

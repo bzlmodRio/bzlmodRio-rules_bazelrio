@@ -1,5 +1,7 @@
 load("@rules_bazelrio//:halsim_defs.bzl", "halsim_cc_binary", "halsim_java_binary")
 load("@rules_bazelrio//private:get_dynamic_deps.bzl", "get_dynamic_deps")
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_java//java:defs.bzl", "java_binary")
 
 def _get_dynamic_dependencies_impl(ctx):
     shared_lib_native_deps = get_dynamic_deps(ctx.attr.target)
@@ -23,7 +25,7 @@ def _deploy_command(name, bin_name, lib_name, team_number, robot_command, visibi
 
     data = [bin_name, discover_dynamic_deps_task_name]
 
-    native.java_binary(
+    java_binary(
         name = name,
         runtime_deps = ["@rules_bazelrio//deploy"],
         main_class = "org.bazelrio.deploy.Deploy",
@@ -47,7 +49,7 @@ def _deploy_command(name, bin_name, lib_name, team_number, robot_command, visibi
 def robot_cc_binary(name, team_number, lib_name, halsim_deps = [], visibility = None, **kwargs):
     deps = [":" + lib_name]
 
-    native.cc_binary(
+    cc_binary(
         name = name,
         deps = deps,
         visibility = visibility,
@@ -72,7 +74,7 @@ def robot_cc_binary(name, team_number, lib_name, halsim_deps = [], visibility = 
     )
 
 def robot_java_binary(name, team_number, main_class, runtime_deps = [], halsim_deps = [], visibility = None, **kwargs):
-    native.java_binary(
+    java_binary(
         name = name,
         main_class = main_class,
         runtime_deps = runtime_deps,
