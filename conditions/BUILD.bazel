@@ -31,8 +31,8 @@ config_setting(
         "@platforms//cpu:x86_64",
     ],
     values = {
-        "cpu": "x64_arm64_windows",
         "compilation_mode": "dbg",
+        "cpu": "x64_arm64_windows",
     },
     visibility = ["//visibility:public"],
 )
