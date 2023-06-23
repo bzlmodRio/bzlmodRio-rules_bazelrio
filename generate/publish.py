@@ -9,7 +9,7 @@ def main():
         SCRIPT_DIR, "..", "..", "..", "bazel-central-registry"
     )
 
-    version = "0.0.11"
+    version = "0.0.12"
     year = "1"
     group = DependencyContainer(
         "rules_bazelrio", version, year, "https://frcmaven.wpi.edu/release"
