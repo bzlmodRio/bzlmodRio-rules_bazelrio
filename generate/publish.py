@@ -1,6 +1,7 @@
 import os
 from bazelrio_gentool.publish_module import publish_module
 from bazelrio_gentool.deps.dependency_container import DependencyContainer
+from get_version import VERSION
 
 
 def main():
@@ -9,7 +10,7 @@ def main():
         SCRIPT_DIR, "..", "..", "..", "bazel-central-registry"
     )
 
-    version = "0.0.12"
+    version = VERSION
     year = "1"
     group = DependencyContainer(
         "rules_bazelrio", version, year, "https://frcmaven.wpi.edu/release"

@@ -8,3 +8,9 @@ py_binary(
         "@bzlmodrio-gentool//bazelrio_gentool",
     ],
 )
+
+py_binary(
+    name = "get_version",
+    srcs = ["get_version.py"],
+    visibility = ["//visibility:public"],
+)
