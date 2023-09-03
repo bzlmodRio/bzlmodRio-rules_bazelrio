@@ -1,4 +1,3 @@
-
 import os
 import argparse
 from bazelrio_gentool.cli import add_generic_cli, GenericCliArgs
@@ -23,7 +22,7 @@ def main():
     parser = argparse.ArgumentParser()
     add_generic_cli(parser)
     args = parser.parse_args()
-    
+
     clean_existing_version(
         REPO_DIR,
         extra_dir_blacklist=["deploy", "conditions", "private"],
@@ -35,12 +34,10 @@ def main():
         ],
     )
 
-    
-    group=get_rules_bazelrio_group()
+    group = get_rules_bazelrio_group()
 
     write_shared_root_files(REPO_DIR, group)
 
-    
     template_files = [
         "WORKSPACE",
         "MODULE.bazel",
@@ -54,7 +51,7 @@ def main():
         group=group,
         bazel_dependencies=get_bazel_dependencies(),
     )
-    
+
 
 if __name__ == "__main__":
     main()

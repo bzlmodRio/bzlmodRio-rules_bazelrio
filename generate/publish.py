@@ -3,7 +3,6 @@ from bazelrio_gentool.publish_module import publish_module
 from get_group import get_rules_bazelrio_group
 
 
-
 def main():
     SCRIPT_DIR = os.environ["BUILD_WORKSPACE_DIRECTORY"]
     registry_location = os.path.join(
