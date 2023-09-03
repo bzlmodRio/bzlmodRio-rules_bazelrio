@@ -1,11 +1,20 @@
 load("@rules_python//python:defs.bzl", "py_binary")
 
+py_library(
+    name = "get_group",
+    srcs = ["get_group.py"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@bzlmodrio-gentool//bazelrio_gentool",
+    ],
+)
+
 py_binary(
     name = "generate",
     srcs = ["generate.py"],
     visibility = ["//visibility:public"],
     deps = [
-        "@bzlmodrio-gentool//bazelrio_gentool",
+        ":get_group",
     ],
 )
 
@@ -14,7 +23,7 @@ py_binary(
     srcs = ["publish.py"],
     visibility = ["//visibility:public"],
     deps = [
-        "@bzlmodrio-gentool//bazelrio_gentool",
+        ":get_group",
     ],
 )
 
