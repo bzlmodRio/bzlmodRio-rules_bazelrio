@@ -20,8 +20,9 @@ import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
+import com.google.devtools.build.runfiles.AutoBazelRepository;
 
-
+@AutoBazelRepository
 class Deploy {
   public static void main(String[] args) throws IOException {
     System.out.println("Starting deploy");
@@ -58,7 +59,7 @@ class Deploy {
 
     Namespace parsedArgs = parser.parseArgsOrFail(args);
 
-    Runfiles runfiles = Runfiles.create();
+    Runfiles runfiles = Runfiles.preload().withSourceRepository(AutoBazelRepository_Deploy.NAME);
 
     File robotBinary = runfile(runfiles, parsedArgs.get("robot_binary"));
     String robotCommand = parsedArgs.get("robot_command");

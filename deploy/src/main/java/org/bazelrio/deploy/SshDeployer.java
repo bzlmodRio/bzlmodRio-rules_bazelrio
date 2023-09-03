@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public abstract class SshDeployer extends BaseDeployer {
-    
+
     private static class CommandFailedException extends IOException {
         public CommandFailedException(String message) { super(message); }
     }
@@ -31,13 +31,13 @@ public abstract class SshDeployer extends BaseDeployer {
 
     protected SshDeployer(boolean verbose) throws IOException {
         super(verbose);
-        
+
         client = new SSHClient();
         client.addHostKeyVerifier(new NoopKeyVerifier());
         client.useCompression();
     }
 
-    
+
     @Override
     public void runCommand(String commandString) throws IOException {
         if (client == null) {
@@ -55,10 +55,10 @@ public abstract class SshDeployer extends BaseDeployer {
                 "Command %s exited with code %d", commandString, exitStatus));
         }
     }
-    
+
     @Override
     protected boolean attemptConnection(String address) {
-        
+
       try {
         client.connect(address);
         client.authPassword("admin", "");

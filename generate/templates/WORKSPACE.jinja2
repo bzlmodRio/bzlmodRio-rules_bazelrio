@@ -1,0 +1,7 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+{{ bazel_dependencies.rules_jvm_external.download_repository(0, maybe=False)}}
+
+load("//:nonbzlmod_setup.bzl", "setup_rules_bazelrio")
+
+setup_rules_bazelrio()

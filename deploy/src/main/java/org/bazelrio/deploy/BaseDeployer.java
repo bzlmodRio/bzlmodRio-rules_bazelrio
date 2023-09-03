@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.File;
 
 public abstract class BaseDeployer {
-
     protected final boolean verbose;
 
     protected BaseDeployer(boolean verbose) {
@@ -59,6 +58,6 @@ public abstract class BaseDeployer {
     }
 
     public abstract void copyFile(FileSystemFile source, String destination);
-    
+
     protected abstract boolean attemptConnection(String address);
 }
