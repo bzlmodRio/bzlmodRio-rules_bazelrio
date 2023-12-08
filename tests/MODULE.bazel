@@ -1,0 +1,8 @@
+bazel_dep(name = "rules_bazelrio", version = "")
+bazel_dep(name = "bzlmodrio-allwpilib", version = "2024.1.1-beta-1")
+bazel_dep(name = "rules_cc", version = "0.0.8")
+
+local_path_override(
+    module_name = "rules_bazelrio",
+    path = "..",
+)

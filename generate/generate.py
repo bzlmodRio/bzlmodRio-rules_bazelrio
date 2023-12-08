@@ -5,6 +5,7 @@ from bazelrio_gentool.clean_existing_version import clean_existing_version
 from bazelrio_gentool.generate_shared_files import get_bazel_dependencies
 from bazelrio_gentool.generate_shared_files import (
     write_shared_root_files,
+    write_shared_test_files,
 )
 from bazelrio_gentool.utils import (
     TEMPLATE_BASE_DIR,
@@ -25,7 +26,7 @@ def main():
 
     clean_existing_version(
         REPO_DIR,
-        extra_dir_blacklist=["deploy", "conditions", "private"],
+        extra_dir_blacklist=["deploy", "conditions", "private", "tests/cpp_robo"],
         file_blacklist=[
             "halsim_defs.bzl",
             "java_rules.bzl",
@@ -37,10 +38,13 @@ def main():
     group = get_rules_bazelrio_group()
 
     write_shared_root_files(REPO_DIR, group)
+    write_shared_test_files(REPO_DIR, group)
 
     template_files = [
         "WORKSPACE",
         "MODULE.bazel",
+        "tests/WORKSPACE",
+        "tests/MODULE.bazel",
     ]
     print(get_rules_bazelrio_group())
 

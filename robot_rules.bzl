@@ -27,7 +27,7 @@ def _deploy_command(name, bin_name, lib_name, team_number, robot_command, visibi
 
     java_binary(
         name = name,
-        runtime_deps = ["@rules_bazelrio//deploy"],
+        runtime_deps = ["@rules_bazelrio//deploy/src/main/java/org/bazelrio/deploy"],
         main_class = "org.bazelrio.deploy.Deploy",
         visibility = visibility,
         args = [

@@ -1,0 +1,12 @@
+load("@rules_bazelrio//:robot_rules.bzl", "robot_java_binary")
+
+robot_java_binary(
+    name = "robot",
+    srcs = glob(["*.java"]),
+    halsim_deps = ["@bzlmodrio-allwpilib//libraries/cpp/halsim_gui"],
+    main_class = "Robot",
+    team_number = 9999,
+    deps = [
+        "@bzlmodrio-allwpilib//libraries/java/wpilibj",
+    ],
+)
