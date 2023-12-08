@@ -26,7 +26,7 @@ def main():
 
     clean_existing_version(
         REPO_DIR,
-        extra_dir_blacklist=["deploy", "conditions", "private", "tests/cpp_robo"],
+        extra_dir_blacklist=["deploy", "conditions", "private"],
         file_blacklist=[
             "halsim_defs.bzl",
             "java_rules.bzl",
