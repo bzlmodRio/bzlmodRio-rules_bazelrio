@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 
 public abstract class SshDeployer extends BaseDeployer {
-
     private static class CommandFailedException extends IOException {
         public CommandFailedException(String message) { super(message); }
     }
@@ -58,7 +57,6 @@ public abstract class SshDeployer extends BaseDeployer {
 
     @Override
     protected boolean attemptConnection(String address) {
-
       try {
         client.connect(address);
         client.authPassword("admin", "");

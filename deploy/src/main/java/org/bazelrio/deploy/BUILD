@@ -1,7 +1,7 @@
 load("@rules_java//java:defs.bzl", "java_library")
 
 java_library(
-    name = "Deploy",
+    name = "deploy",
     srcs = glob(["*.java"]),
     javacopts = ["-Werror"],
     visibility = ["//visibility:public"],
