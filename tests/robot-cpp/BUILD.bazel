@@ -11,7 +11,9 @@ cc_library(
 
 robot_cc_binary(
     name = "robot",
+    dry_run = True,
     halsim_deps = ["@bzlmodrio-allwpilib//libraries/cpp/halsim_gui"],
     lib_name = "robot-lib",
     team_number = 9999,
+    verbose = True,
 )
