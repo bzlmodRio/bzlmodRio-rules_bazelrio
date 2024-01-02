@@ -1,6 +1,11 @@
 bazel_dep(name = "rules_bazelrio", version = "")
 bazel_dep(name = "bzlmodrio-allwpilib", version = "2024.1.1-beta-1")
 {{bazel_dependencies.rules_cc.module_dep()}}
+{{ mandatory_dependencies.rules_wpi_styleguide.module_dep() }}
+{{ mandatory_dependencies.rules_checkstyle.module_dep() }}
+{{ mandatory_dependencies.rules_pmd.module_dep() }}
+{{ mandatory_dependencies.rules_spotless.module_dep() }}
+{{ mandatory_dependencies.rules_wpiformat.module_dep() }}
 
 local_path_override(
     module_name = "rules_bazelrio",

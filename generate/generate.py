@@ -7,6 +7,9 @@ from bazelrio_gentool.generate_shared_files import (
     write_shared_root_files,
     write_shared_test_files,
 )
+from bazelrio_gentool.generate_module_project_files import (
+    create_default_mandatory_settings,
+)
 from bazelrio_gentool.utils import (
     TEMPLATE_BASE_DIR,
     write_file,
@@ -23,6 +26,8 @@ def main():
     parser = argparse.ArgumentParser()
     add_generic_cli(parser)
     args = parser.parse_args()
+
+    mandatory_dependencies = create_default_mandatory_settings(GenericCliArgs(args))
 
     clean_existing_version(
         REPO_DIR,
@@ -54,6 +59,7 @@ def main():
         os.path.join(SCRIPT_DIR, "templates"),
         group=group,
         bazel_dependencies=get_bazel_dependencies(),
+        mandatory_dependencies=mandatory_dependencies,
     )
 
 

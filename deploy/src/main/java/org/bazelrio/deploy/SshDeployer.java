@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public abstract class SshDeployer extends BaseDeployer {
     private static class CommandFailedException extends IOException {
+        private static final long serialVersionUID = 3404191L;
+
         public CommandFailedException(String message) { super(message); }
     }
 
