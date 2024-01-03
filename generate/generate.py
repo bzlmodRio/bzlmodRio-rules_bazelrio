@@ -51,7 +51,6 @@ def main():
         "tests/WORKSPACE",
         "tests/MODULE.bazel",
     ]
-    print(get_rules_bazelrio_group())
 
     render_templates(
         template_files,
@@ -60,6 +59,45 @@ def main():
         group=group,
         bazel_dependencies=get_bazel_dependencies(),
         mandatory_dependencies=mandatory_dependencies,
+    )
+
+    manual_fixes(REPO_DIR)
+
+
+def manual_fixes(repo_dir):
+    def helper(filename, callback):
+        with open(filename, "r") as f:
+            contents = f.read()
+
+        new_contents = callback(contents)
+        if new_contents == contents:
+            raise Exception("Nothing was replaced!")
+
+        with open(filename, "w") as f:
+            f.write(new_contents)
+
+    helper(
+        os.path.join(repo_dir, ".bazelrc-java"),
+        lambda contents: contents.replace(
+            "# build --javacopt=-Werror",
+            "build --javacopt=-Werror",
+        ),
+    )
+
+    helper(
+        os.path.join(repo_dir, "tests", ".bazelrc-java"),
+        lambda contents: contents.replace(
+            "# build --javacopt=-Werror",
+            "build --javacopt=-Werror",
+        ),
+    )
+
+    helper(
+        os.path.join(repo_dir, ".github", "workflows", "build.yml"),
+        lambda contents: contents.replace(
+            'command: "test"',
+            'command: "build"',
+        ),
     )
 
 
