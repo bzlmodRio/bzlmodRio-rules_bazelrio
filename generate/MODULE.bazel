@@ -1,7 +1,10 @@
+module(
+    name = "rules_bazelrio-gentool",
+)
+
+bazel_dep(name = "rules_python", version = "0.16.1")
 bazel_dep(name = "bzlmodrio-gentool", version = "")
 local_path_override(
     module_name = "bzlmodrio-gentool",
     path = "../../../gentool",
 )
-
-bazel_dep(name = "rules_python", version = "0.21.0")
