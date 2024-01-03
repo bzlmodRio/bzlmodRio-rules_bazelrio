@@ -16,7 +16,7 @@ _get_dynamic_dependencies = rule(
     implementation = _get_dynamic_dependencies_impl,
 )
 
-def _deploy_command(name, bin_name, lib_name, team_number, robot_command, visibility):
+def _deploy_command(name, bin_name, lib_name, team_number, dry_run, verbose, is_java, visibility):
     discover_dynamic_deps_task_name = lib_name + ".discover_dynamic_deps"
     _get_dynamic_dependencies(
         name = discover_dynamic_deps_task_name,
@@ -25,28 +25,37 @@ def _deploy_command(name, bin_name, lib_name, team_number, robot_command, visibi
 
     data = [bin_name, discover_dynamic_deps_task_name]
 
+    args = [
+        "--robot_binary",
+        "$(location {})".format(bin_name),
+        "--team_number",
+        str(team_number),
+        "--dynamic_libraries",
+        "$(locations {})".format(discover_dynamic_deps_task_name),
+    ]
+
+    if dry_run:
+        args.append("--dry_run")
+
+    if verbose:
+        args.append("--verbose")
+
+    if is_java:
+        args.append("--is_java")
+
     java_binary(
         name = name,
         runtime_deps = ["@rules_bazelrio//deploy/src/main/java/org/bazelrio/deploy"],
-        main_class = "org.bazelrio.deploy.Deploy",
+        main_class = "org.bazelrio.deploy.Main",
         visibility = visibility,
-        args = [
-            "--robot_binary",
-            "$(location {})".format(bin_name),
-            "--robot_command",
-            "'{}'".format(robot_command),
-            "--team_number",
-            str(team_number),
-            "--dynamic_libraries",
-            "$(locations {})".format(discover_dynamic_deps_task_name),
-        ],
+        args = args,
         data = data,
         target_compatible_with = [
             #  "@bazelrio//constraints/is_roborio:true",
         ],
     )
 
-def robot_cc_binary(name, team_number, lib_name, halsim_deps = [], visibility = None, **kwargs):
+def robot_cc_binary(name, team_number, lib_name, halsim_deps = [], visibility = None, dry_run = False, verbose = False, **kwargs):
     deps = [":" + lib_name]
 
     cc_binary(
@@ -69,11 +78,13 @@ def robot_cc_binary(name, team_number, lib_name, halsim_deps = [], visibility = 
         bin_name = name,
         lib_name = lib_name,
         team_number = team_number,
-        robot_command = "{}",
         visibility = visibility,
+        dry_run = dry_run,
+        verbose = verbose,
+        is_java = False,
     )
 
-def robot_java_binary(name, team_number, main_class, runtime_deps = [], halsim_deps = [], visibility = None, **kwargs):
+def robot_java_binary(name, team_number, main_class, runtime_deps = [], halsim_deps = [], visibility = None, dry_run = False, verbose = False, **kwargs):
     java_binary(
         name = name,
         main_class = main_class,
@@ -101,5 +112,7 @@ def robot_java_binary(name, team_number, main_class, runtime_deps = [], halsim_d
         lib_name = name,
         team_number = team_number,
         visibility = visibility,
-        robot_command = "/usr/local/frc/JRE/bin/java -XX:+UseConcMarkSweepGC -Djava.library.path=/usr/local/frc/third-party/lib -Djava.lang.invoke.stringConcat=BC_SB -jar {}",
+        dry_run = dry_run,
+        verbose = verbose,
+        is_java = True,
     )
