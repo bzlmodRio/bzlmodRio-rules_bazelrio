@@ -75,7 +75,7 @@ def manual_fixes(repo_dir):
 
         with open(filename, "w") as f:
             f.write(new_contents)
-            
+
     helper(
         os.path.join(repo_dir, ".bazelrc-java"),
         lambda contents: contents.replace(
@@ -83,7 +83,7 @@ def manual_fixes(repo_dir):
             "build --javacopt=-Werror",
         ),
     )
-            
+
     helper(
         os.path.join(repo_dir, "tests", ".bazelrc-java"),
         lambda contents: contents.replace(
@@ -91,7 +91,7 @@ def manual_fixes(repo_dir):
             "build --javacopt=-Werror",
         ),
     )
-            
+
     helper(
         os.path.join(repo_dir, ".github", "workflows", "build.yml"),
         lambda contents: contents.replace(
