@@ -49,6 +49,10 @@ public final class JniDebugger {
   }
 
   public static void printSharedLibDependents(String sharedObjectName) {
+    printSharedLibDependents(sharedObjectName, "");
+  }
+    
+  public static void printSharedLibDependents(String sharedObjectName, String suffix) {
     System.out.println("-------------------------------------------\n");
     System.out.println("Dumping LDD for " + sharedObjectName);
 
@@ -57,9 +61,9 @@ public final class JniDebugger {
 
       String osName = System.getProperty("os.name");
       if (osName.contains("Linux")) {
-        command = "ldd lib" + sharedObjectName + ".so";
+        command = "ldd lib" + sharedObjectName + ".so" + suffix;
       } else if (osName.contains("Mac")) {
-        command = "otool -L lib" + sharedObjectName + ".dylib";
+        command = "otool -L lib" + sharedObjectName + suffix + ".dylib";
       } else if (osName.contains("Windows")) {
         System.err.println("Not easy to query on windows");
       } else {
