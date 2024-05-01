@@ -1,0 +1,7 @@
+
+
+java_library(
+    name = "JniDebugger",
+    srcs = ["JniDebugger.java"],
+    visibility = ["//visibility:public"],
+)
