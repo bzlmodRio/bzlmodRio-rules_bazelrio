@@ -66,6 +66,8 @@ public final class JniDebugger {
         System.err.println("Unknown os '" + osName + "'");
       }
 
+      System.out.println("  Running '" + command + "'");
+
       Runtime r = Runtime.getRuntime();
       Process p = r.exec(command);
       p.waitFor();
