@@ -48,16 +48,29 @@ public final class JniDebugger {
     }
   }
 
-  public static void printLddDebugInfo(String sharedObjectName) {
+  public static void printSharedLibDependents(String sharedObjectName) {
+    System.out.println("-------------------------------------------\n");
+    System.out.println("Dumping LDD for " + sharedObjectName);
+
     try {
+      String command = "dummy";
+
+      String osName = System.getProperty("os.name");
+      if (osName.contains("Linux")) {
+        command = "ldd lib" + sharedObjectName + ".so";
+      } else if (osName.contains("Mac")) {
+        command = "otool -L lib" + sharedObjectName + ".dylib";
+      } else if (osName.contains("Windows")) {
+        System.err.println("Not easy to query on windows");
+      } else {
+        System.err.println("Unknown os '" + osName + "'");
+      }
+
       Runtime r = Runtime.getRuntime();
-      Process p = r.exec("ldd " + sharedObjectName);
+      Process p = r.exec(command);
       p.waitFor();
       BufferedReader b = new BufferedReader(new InputStreamReader(p.getInputStream()));
       String line = "";
-      
-      System.out.println("-------------------------------------------\n");
-      System.out.println("Dumping LDD for " + sharedObjectName);
 
       while ((line = b.readLine()) != null) {
         System.out.println(line);
