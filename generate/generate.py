@@ -12,9 +12,6 @@ from bazelrio_gentool.generate_module_project_files import (
     create_default_mandatory_settings,
 )
 from bazelrio_gentool.utils import (
-    TEMPLATE_BASE_DIR,
-    write_file,
-    render_template,
     render_templates,
 )
 from get_group import get_rules_bazelrio_group
