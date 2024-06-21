@@ -54,7 +54,7 @@ public final class JniDebugger {
   public static void printSharedLibDependents(String sharedObjectName) {
     printSharedLibDependents(sharedObjectName, "");
   }
-    
+
   public static void printSharedLibDependents(String sharedObjectName, String suffix) {
     System.out.println("-------------------------------------------\n");
     System.out.println("Dumping LDD for " + sharedObjectName);
@@ -84,7 +84,7 @@ public final class JniDebugger {
       while ((line = b.readLine()) != null) {
         System.out.println(line);
       }
-      
+
       System.out.println("-------------------------------------------\n");
 
       b.close();
