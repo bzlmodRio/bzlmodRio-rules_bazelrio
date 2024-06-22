@@ -7,6 +7,7 @@ bazel_dep(name = "rules_checkstyle", version = "10.12.2")
 bazel_dep(name = "rules_pmd", version = "7.2.0")
 bazel_dep(name = "rules_spotless", version = "2.40.0")
 bazel_dep(name = "rules_wpiformat", version = "2024.34")
+bazel_dep(name = "rules_bzlmodrio_jdk", version = "17.0.8-7")
 
 local_path_override(
     module_name = "rules_bazelrio",
