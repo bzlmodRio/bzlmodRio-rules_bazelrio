@@ -7,15 +7,15 @@ local_repository(
 
 http_archive(
     name = "rules_java",
-    sha256 = "27abf8d2b26f4572ba4112ae8eb4439513615018e03a299f85a8460f6992f6a3",
-    url = "https://github.com/bazelbuild/rules_java/releases/download/6.4.0/rules_java-6.4.0.tar.gz",
+    sha256 = "f8ae9ed3887df02f40de9f4f7ac3873e6dd7a471f9cddf63952538b94b59aeb3",
+    url = "https://github.com/bazelbuild/rules_java/releases/download/7.6.1/rules_java-7.6.1.tar.gz",
 )
 
 http_archive(
     name = "rules_jvm_external",
-    sha256 = "d31e369b854322ca5098ea12c69d7175ded971435e55c18dd9dd5f29cc5249ac",
-    strip_prefix = "rules_jvm_external-5.3",
-    url = "https://github.com/bazelbuild/rules_jvm_external/releases/download/5.3/rules_jvm_external-5.3.tar.gz",
+    sha256 = "08ea921df02ffe9924123b0686dc04fd0ff875710bfadb7ad42badb931b0fd50",
+    strip_prefix = "rules_jvm_external-6.1",
+    url = "https://github.com/bazelbuild/rules_jvm_external/releases/download/6.1/rules_jvm_external-6.1.tar.gz",
 )
 
 load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
@@ -93,3 +93,16 @@ load("@rules_wpi_styleguide//dependencies:load_pins.bzl", "load_styleguide_pins"
 
 load_styleguide_pins()
 #####################
+
+http_archive(
+    name = "rules_bzlmodrio_jdk",
+    integrity = "sha256-CuS7x85kbqJ7k3gC8Bae5BWgCd/SHRogBXd8jJ/d7+k=",
+    strip_prefix = "rules_bzlmodrio_jdk-002eda2bf3dcb98c68aa6ab7b6d8c30112b7892e",
+    urls = [
+        "https://github.com/bzlmodRio/rules_bzlmodrio_jdk/archive/002eda2bf3dcb98c68aa6ab7b6d8c30112b7892e.zip",
+    ],
+)
+
+load("@rules_bzlmodrio_jdk//:maven_deps.bzl", "setup_legacy_setup_jdk_dependencies")
+
+setup_legacy_setup_jdk_dependencies()

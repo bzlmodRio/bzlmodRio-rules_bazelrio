@@ -3,6 +3,7 @@ import argparse
 from bazelrio_gentool.cli import add_generic_cli, GenericCliArgs
 from bazelrio_gentool.clean_existing_version import clean_existing_version
 from bazelrio_gentool.generate_shared_files import get_bazel_dependencies
+from bazelrio_gentool.manual_cleanup_helper import manual_cleanup_helper
 from bazelrio_gentool.generate_shared_files import (
     write_shared_root_files,
     write_shared_test_files,
@@ -10,12 +11,7 @@ from bazelrio_gentool.generate_shared_files import (
 from bazelrio_gentool.generate_module_project_files import (
     create_default_mandatory_settings,
 )
-from bazelrio_gentool.utils import (
-    TEMPLATE_BASE_DIR,
-    write_file,
-    render_template,
-    render_templates,
-)
+from bazelrio_gentool.utils import TEMPLATE_BASE_DIR, render_templates
 from get_group import get_rules_bazelrio_group
 
 
@@ -31,7 +27,7 @@ def main():
 
     clean_existing_version(
         REPO_DIR,
-        extra_dir_blacklist=["deploy", "conditions", "private"],
+        extra_dir_blacklist=["deploy", "conditions", "private", "jnidebugger"],
         file_blacklist=[
             "halsim_defs.bzl",
             "java_rules.bzl",
@@ -61,22 +57,19 @@ def main():
         mandatory_dependencies=mandatory_dependencies,
     )
 
+    template_files = [
+        ".bazelrc-java",
+        "tests/.bazelrc-java",
+    ]
+    render_templates(
+        template_files, REPO_DIR, os.path.join(TEMPLATE_BASE_DIR, "library_wrapper")
+    )
+
     manual_fixes(REPO_DIR)
 
 
 def manual_fixes(repo_dir):
-    def helper(filename, callback):
-        with open(filename, "r") as f:
-            contents = f.read()
-
-        new_contents = callback(contents)
-        if new_contents == contents:
-            raise Exception("Nothing was replaced!")
-
-        with open(filename, "w") as f:
-            f.write(new_contents)
-
-    helper(
+    manual_cleanup_helper(
         os.path.join(repo_dir, ".bazelrc-java"),
         lambda contents: contents.replace(
             "# build --javacopt=-Werror",
@@ -84,7 +77,7 @@ def manual_fixes(repo_dir):
         ),
     )
 
-    helper(
+    manual_cleanup_helper(
         os.path.join(repo_dir, "tests", ".bazelrc-java"),
         lambda contents: contents.replace(
             "# build --javacopt=-Werror",
@@ -92,7 +85,7 @@ def manual_fixes(repo_dir):
         ),
     )
 
-    helper(
+    manual_cleanup_helper(
         os.path.join(repo_dir, ".github", "workflows", "build.yml"),
         lambda contents: contents.replace(
             'command: "test"',
