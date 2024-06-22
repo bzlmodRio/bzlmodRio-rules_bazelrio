@@ -94,7 +94,6 @@ load("@rules_wpi_styleguide//dependencies:load_pins.bzl", "load_styleguide_pins"
 load_styleguide_pins()
 #####################
 
-
 http_archive(
     name = "rules_bzlmodrio_jdk",
     integrity = "sha256-CuS7x85kbqJ7k3gC8Bae5BWgCd/SHRogBXd8jJ/d7+k=",

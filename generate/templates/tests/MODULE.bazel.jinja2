@@ -7,6 +7,7 @@ bazel_dep(name = "bzlmodrio-allwpilib", version = "2024.1.1-beta-1")
 {{ mandatory_dependencies.rules_pmd.module_dep() }}
 {{ mandatory_dependencies.rules_spotless.module_dep() }}
 {{ mandatory_dependencies.rules_wpiformat.module_dep() }}
+{{ mandatory_dependencies.rules_bzlmodrio_jdk.module_dep() }}
 
 local_path_override(
     module_name = "rules_bazelrio",

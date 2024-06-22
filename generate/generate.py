@@ -11,9 +11,7 @@ from bazelrio_gentool.generate_shared_files import (
 from bazelrio_gentool.generate_module_project_files import (
     create_default_mandatory_settings,
 )
-from bazelrio_gentool.utils import (
-    render_templates,
-)
+from bazelrio_gentool.utils import TEMPLATE_BASE_DIR, render_templates
 from get_group import get_rules_bazelrio_group
 
 
@@ -57,6 +55,14 @@ def main():
         group=group,
         bazel_dependencies=get_bazel_dependencies(),
         mandatory_dependencies=mandatory_dependencies,
+    )
+
+    template_files = [
+        ".bazelrc-java",
+        "tests/.bazelrc-java",
+    ]
+    render_templates(
+        template_files, REPO_DIR, os.path.join(TEMPLATE_BASE_DIR, "library_wrapper")
     )
 
     manual_fixes(REPO_DIR)
