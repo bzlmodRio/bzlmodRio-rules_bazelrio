@@ -38,7 +38,6 @@ jobs:
       uses: ./.github/actions/setup-build-buddy
       with:
         token: ${{ secrets.BUILDBUDDY_API_KEY }}
-        readonly_token: ${{ secrets.BUILDBUDDY_READONLY }}
     - run: bazel ${{ matrix.bazel_options }} build -k ${{ matrix.config }} --config=ci @rules_bazelrio//...
       working-directory: tests
     - name: Build and allow failure # TODO Sometimes symlinks don't get created correctly the first time around
@@ -78,7 +77,6 @@ jobs:
       uses: ./.github/actions/setup-build-buddy
       with:
         token: ${{ secrets.BUILDBUDDY_API_KEY }}
-        readonly_token: ${{ secrets.BUILDBUDDY_READONLY }}
     - name: Build and allow failure # TODO Sometimes symlinks don't get created correctly the first time around
       run: bazel ${{ matrix.bazel_options }} ${{ matrix.command }} //... -k ${{ matrix.config }} --verbose_failures --config=ci || true
       working-directory: tests
@@ -115,7 +113,6 @@ jobs:
       uses: ./.github/actions/setup-build-buddy
       with:
         token: ${{ secrets.BUILDBUDDY_API_KEY }}
-        readonly_token: ${{ secrets.BUILDBUDDY_READONLY }}
     - name: Build and allow failure # TODO Sometimes symlinks don't get created correctly the first time around
       run: bazel ${{ matrix.bazel_options }} ${{ matrix.command }} //... -k ${{ matrix.config }} --verbose_failures --config=ci || true
       working-directory: tests
@@ -129,12 +126,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        # Build non-bzlmod, bullseye32:
+        # Build non-bzlmod, bullseye64:
         - { name: "windows - bullseye64",         os: windows-2022,   java_arch: "x64",     command: "build", config: "--noenable_bzlmod --config=bullseye64", bazel_options: "--output_user_root=C:\\bazelroot", }
         - { name: "ubuntu  - bullseye64",         os: ubuntu-22.04,   java_arch: "x64",     command: "build", config: "--noenable_bzlmod --config=bullseye64", bazel_options: "",                                 }
-        - { name: "macos   - bullseye64",         os: macos-14,       java_arch: "aarch64", command: "build", config: "--noenable_bzlmod --config=bullseye32", bazel_options: "",                                 }
+        - { name: "macos   - bullseye64",         os: macos-14,       java_arch: "aarch64", command: "build", config: "--noenable_bzlmod --config=bullseye64", bazel_options: "",                                 }
 
-        # Build bzlmod, bullseye32:
+        # Build bzlmod, bullseye64:
         - { name: "windows - bzlmod bullseye64",  os: windows-2022,   java_arch: "x64",     command: "build", config: "--enable_bzlmod --config=bullseye64", bazel_options: "--output_user_root=C:\\bazelroot", }
         - { name: "ubuntu  - bzlmod bullseye64",  os: ubuntu-22.04,   java_arch: "x64",     command: "build", config: "--enable_bzlmod --config=bullseye64", bazel_options: "",                                 }
         - { name: "macos   - bzlmod bullseye64",  os: macos-14,       java_arch: "aarch64", command: "build", config: "--enable_bzlmod --config=bullseye64", bazel_options: "",                                 }
@@ -153,7 +150,6 @@ jobs:
       uses: ./.github/actions/setup-build-buddy
       with:
         token: ${{ secrets.BUILDBUDDY_API_KEY }}
-        readonly_token: ${{ secrets.BUILDBUDDY_READONLY }}
     - name: Build and allow failure # TODO Sometimes symlinks don't get created correctly the first time around
       run: bazel ${{ matrix.bazel_options }} ${{ matrix.command }} //... -k ${{ matrix.config }} --verbose_failures --config=ci || true
       working-directory: tests

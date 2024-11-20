@@ -1,5 +1,5 @@
-from get_version import VERSION
 from bazelrio_gentool.deps.dependency_container import DependencyContainer
+from get_version import VERSION
 
 
 def get_rules_bazelrio_group():
