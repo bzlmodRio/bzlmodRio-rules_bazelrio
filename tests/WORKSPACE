@@ -42,7 +42,7 @@ download_dependencies(
     apriltaglib_version = None,
     imgui_version = None,
     libssh_version = None,
-    navx_version = None,
+    studica_version = None,
     pathplannerlib_version = None,
     phoenix_version = None,
     photonlib_version = None,
