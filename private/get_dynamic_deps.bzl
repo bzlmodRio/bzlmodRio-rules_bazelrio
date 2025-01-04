@@ -1,3 +1,5 @@
+load("@rules_java//java/common:java_info.bzl", "JavaInfo")
+
 def get_dynamic_deps(target):
     shared_lib_native_deps = []
 
